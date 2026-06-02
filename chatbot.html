@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Chatbot Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      width: 400px;
+      height: 500px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #4A90E2;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 18px;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 75%;
+    }
+
+    .user-message {
+      align-self: flex-end;
+      background: #DCF8C6;
+    }
+
+    .bot-message {
+      align-self: flex-start;
+      background: #E5E5EA;
+    }
+
+    .chat-footer {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-footer input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+
+    .chat-footer button {
+      background: #4A90E2;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .chat-footer button:hover {
+      background: #357ABD;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">💬 My Chatbot</div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-footer">
+      <input type="text" id="userInput" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!--<script>
+    const chatBody = document.getElementById("chatBody");
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      // Add user message
+      appendMessage(userText, "user");
+
+      // Bot reply (demo: just echoes message)
+      setTimeout(() => {
+        let botReply = "You said: " + userText;
+        appendMessage(botReply, "bot");
+      }, 500);
+
+      input.value = "";
+    }
+
+    function appendMessage(text, sender) {
+      const message = document.createElement("div");
+      message.classList.add("message");
+      message.classList.add(sender === "user" ? "user-message" : "bot-message");
+      message.innerText = text;
+      chatBody.appendChild(message);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  </script>-->
+<script>
+  const chatBody = document.getElementById("chatBody");
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const userText = input.value.trim().toLowerCase(); // make lowercase for matching
+    if (!userText) return;
+
+    // Add user message
+    appendMessage(input.value, "user");
+
+    // Bot reply
+    setTimeout(() => {
+      let botReply = "";
+
+      if (userText === "hi") {
+        botReply = "hi 👋";
+      } else if (userText === "hello") {
+        botReply = "Hello there! 😊";
+      } else if (userText === "bye") {
+        botReply = "Goodbye! 👋";
+      } else {
+        botReply = "I didn’t understand that 🤔";
+      }
+
+      appendMessage(botReply, "bot");
+    }, 500);
+
+    input.value = "";
+  }
+
+  function appendMessage(text, sender) {
+    const message = document.createElement("div");
+    message.classList.add("message");
+    message.classList.add(sender === "user" ? "user-message" : "bot-message");
+    message.innerText = text;
+    chatBody.appendChild(message);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+</script>
+
+</body>
+</html>
